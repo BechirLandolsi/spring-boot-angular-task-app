@@ -1,0 +1,26 @@
+package com.remoran.tasks.controller;
+
+import com.remoran.tasks.domain.Task;
+import com.remoran.tasks.service.TaskService;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/tasks")
+public class TaskController {
+
+    private TaskService taskService;
+
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
+    }
+
+    @GetMapping(value = {"", "/"})
+    public Iterable<Task> list(){
+        return this.taskService.list();
+    }
+
+    @PostMapping("/save")
+    public Task save(@RequestBody Task task){
+        return this.taskService.save(task);
+    }
+}
